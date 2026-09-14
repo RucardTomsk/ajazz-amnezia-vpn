@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private security report / Уязвимость
+    url: https://github.com/RucardTomsk/ajazz-amnezia-vpn/security/advisories/new
+    about: Please report security vulnerabilities privately.
+  - name: Installation guide / Инструкция
+    url: https://github.com/RucardTomsk/ajazz-amnezia-vpn#установка
+    about: Installation, compatibility and configuration.

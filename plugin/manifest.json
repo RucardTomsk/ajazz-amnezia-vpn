@@ -1,0 +1,26 @@
+{
+  "Name": "Amnezia VPN",
+  "Author": "Rucard",
+  "Version": "1.2.0",
+  "Description": "Управление AmneziaVPN и отображение состояния подключения",
+  "Icon": "images/category",
+  "Category": "Amnezia VPN",
+  "CategoryIcon": "images/category",
+  "CodePath": "index.js",
+  "CodePathWin": "index.js",
+  "SDKVersion": 1,
+  "Nodejs": { "Version": "20" },
+  "OS": [{ "Platform": "windows", "MinimumVersion": "10" }],
+  "Actions": [{
+    "UUID": "com.rucard.amnezia.toggle",
+    "Name": "VPN: вкл / выкл",
+    "Tooltip": "Состояние AmneziaVPN. Разрешите управление в настройках кнопки для переключения.",
+    "Icon": "images/category",
+    "UserTitleEnabled": false,
+    "DisableAutomaticStates": true,
+    "SupportedInMultiActions": false,
+    "Controllers": ["Keypad"],
+    "PropertyInspectorPath": "inspector.html",
+    "States": [{ "Image": "images/unknown", "TitleAlignment": "bottom", "FontSize": "11" }]
+  }]
+}

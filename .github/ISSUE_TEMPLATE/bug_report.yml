@@ -1,0 +1,41 @@
+name: Bug report / Ошибка
+description: Report unexpected behavior without posting VPN secrets.
+body:
+  - type: markdown
+    attributes:
+      value: "Do not attach keys, VPN profiles, server addresses or raw logs. Уязвимости сообщайте через Security → Report a vulnerability."
+  - type: textarea
+    id: environment
+    attributes:
+      label: Versions / Версии
+      description: Windows, plugin, AJAZZ, device model, Amnezia and protocol.
+    validations:
+      required: true
+  - type: dropdown
+    id: window
+    attributes:
+      label: Amnezia window / Окно клиента
+      options:
+        - Open / Открыто
+        - Minimized on taskbar / Свёрнуто
+        - Hidden in tray / Скрыто в трее
+        - Client not running / Клиент не запущен
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps and actual result / Шаги и результат
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result / Ожидаемый результат
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Sanitized diagnostics / Диагностика без личных данных
+      description: Remove usernames and private paths before sharing.

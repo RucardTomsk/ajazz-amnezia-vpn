@@ -1,0 +1,16 @@
+{
+  "name": "ajazz-amnezia-vpn",
+  "version": "1.2.0",
+  "private": true,
+  "scripts": {
+    "test": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1",
+    "build": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build.ps1"
+  },
+  "license": "MIT",
+  "description": "AmneziaVPN connection control and status for AJAZZ Stream Dock on Windows",
+  "author": "RucardTomsk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RucardTomsk/ajazz-amnezia-vpn.git"
+  }
+}

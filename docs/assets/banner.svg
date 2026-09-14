@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" role="img" aria-labelledby="title desc">
+<title id="title">Amnezia VPN for AJAZZ</title><desc id="desc">One key. Clear connection status. Independent open source Windows plugin.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101b2d"/><stop offset="1" stop-color="#153c3d"/></linearGradient></defs>
+<rect width="1200" height="340" rx="24" fill="url(#bg)"/>
+<g font-family="Segoe UI,Arial,sans-serif"><text x="60" y="70" fill="#5fe3bb" font-size="16" letter-spacing="4">WINDOWS · OPEN SOURCE · MIT</text>
+<text x="60" y="139" fill="#fff" font-size="50" font-weight="700">Amnezia VPN</text><text x="60" y="193" fill="#fff" font-size="38">for AJAZZ Stream Dock</text>
+<text x="60" y="250" fill="#b8cbd9" font-size="21">One key. Clear connection status.</text><text x="60" y="292" fill="#8faabc" font-size="15">Independent community plugin</text></g>
+<g transform="translate(810 80)"><rect width="125" height="160" rx="22" fill="#101821" stroke="#355569" stroke-width="3"/>
+<path d="M62 27 97 40V74Q93 105 62 123Q31 105 27 74V40Z" fill="none" stroke="#35d69a" stroke-width="5"/><path d="m43 70 15 15 25-32" fill="none" stroke="#35d69a" stroke-width="6" stroke-linecap="round"/>
+<text x="62" y="146" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#35d69a">ON</text></g>
+<g transform="translate(961 99)"><rect width="110" height="141" rx="20" fill="#101821" stroke="#355569" stroke-width="3"/>
+<path d="M55 22 85 34V62Q81 91 55 106Q29 91 25 62V34Z" fill="none" stroke="#8c98a8" stroke-width="4"/><path d="M40 62H70" stroke="#8c98a8" stroke-width="5" stroke-linecap="round"/>
+<text x="55" y="128" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#8c98a8">OFF</text></g></svg>

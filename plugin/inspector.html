@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amnezia VPN</title><style>
+body{font:13px/1.5 'Segoe UI',sans-serif;background:#242424;color:#eee;margin:16px}h2{font-size:17px;margin:0 0 10px}
+.card{padding:12px;border:1px solid #494949;border-radius:8px;margin:12px 0}.check{display:flex;gap:9px;align-items:flex-start}
+.check input{margin-top:4px}p{color:#bdbdbd;margin:8px 0}button{padding:7px 10px;border:1px solid #656565;border-radius:5px;background:#393939;color:#fff;cursor:pointer}
+button:disabled{opacity:.5;cursor:default}#status{font-weight:600}small{display:block;color:#aaa;margin:4px 0 10px}
+.field{display:block;margin:12px 0 4px}input[type=text],input[type=number],select{box-sizing:border-box;width:100%;padding:7px;background:#181818;color:#eee;border:1px solid #666;border-radius:4px}
+details{margin:12px 0}summary{cursor:pointer;color:#ddd}.buttons{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+#notice{white-space:pre-wrap;color:#efc477}#diagnostics{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}#modeHelp{color:#b8c8dc}
+</style></head><body>
+<h2>Amnezia VPN</h2>
+<div class="card"><span id="status">Ожидание плагина…</span><div id="detail"></div></div>
+<label class="check"><input type="checkbox" id="control"><span>Разрешить включение и выключение VPN этой кнопкой</span></label>
+<p id="mode">Только индикация: нажатие не меняет подключение.</p>
+<div class="buttons"><button id="refresh">Обновить статус</button><button id="diagnose">Проверить совместимость</button></div>
+<small>Проверка совместимости не переключает VPN и не открывает его окно.</small>
+<div id="diagnostics" class="card" hidden></div>
+<div class="card">
+<strong>Настройки этого компьютера</strong>
+<small>Общие для всех кнопок Amnezia VPN. Сервер и ключи настраиваются в самой Amnezia.</small>
+<form id="configuration">
+<label class="field" for="statusMode">Протокол / определение состояния</label>
+<select id="statusMode"><option value="auto">Авто</option><option value="wg">AmneziaWG / WireGuard</option><option value="ui">XRay / OpenVPN — по окну клиента</option></select>
+<p id="modeHelp"></p>
+<label class="field" for="executablePath">Путь к AmneziaVPN.exe — необязательно</label>
+<input type="text" id="executablePath" placeholder="Пусто — найти запущенную Amnezia автоматически" autocomplete="off" spellcheck="false">
+<small>Нужен только если автопоиск не находит клиент или запущено несколько копий. Полный путь без кавычек. Клиент не запускается автоматически.</small>
+<details><summary>Другой язык или медленный компьютер</summary>
+<p>Русский и английский распознаются автоматически. Для другого языка скопируйте обе подписи главной кнопки точно как в Amnezia.</p>
+<label class="field" for="connectedText">Подпись при подключённом VPN</label><input type="text" id="connectedText" maxlength="80" placeholder="Например: Verbunden" autocomplete="off">
+<label class="field" for="disconnectedText">Подпись при отключённом VPN</label><input type="text" id="disconnectedText" maxlength="80" placeholder="Например: Verbinden" autocomplete="off">
+<label class="field" for="timeoutSeconds">Ожидание ответа клиента, секунд</label><input type="number" id="timeoutSeconds" min="3" max="20" step="1" value="5">
+<small>Увеличьте до 10–20 секунд, если проверка сообщает, что клиент не успел ответить.</small>
+</details>
+<div class="buttons"><button id="save" type="submit">Сохранить настройки</button><button id="defaults" type="button">Стандартные значения</button></div>
+<div id="notice" role="status"></div>
+</form></div>
+<small>Зелёный щит — VPN включён; серый — выключен; жёлтый — переключение; ? — состояние не определено. R означает режим только индикации. Для управления оставьте главную вкладку Amnezia выбранной перед сворачиванием. Проверенная система: Windows 10/11 x64, AJAZZ с Node.js 20 и AmneziaVPN 4.8.19.0. Изменение внутренних элементов в другой версии клиента может потребовать обновления плагина.</small>
+<script src="config.js"></script><script src="inspector.js"></script></body></html>

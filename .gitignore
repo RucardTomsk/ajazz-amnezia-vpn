@@ -1,0 +1,14 @@
+.research/
+dist/
+**/node_modules/
+plugin/bin/
+artifacts/
+*.log
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.pem
+.vs/
+.idea/
