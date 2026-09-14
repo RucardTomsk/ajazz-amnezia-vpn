@@ -37,7 +37,7 @@ To uninstall, remove the key action, close AJAZZ, and delete only that plugin fo
 Compare `Get-FileHash .\AmneziaVPN-AJAZZ.zip -Algorithm SHA256` with the release's
 `SHA256SUMS.txt`. The executable is not Authenticode signed.
 
-## Configure another PC
+## Configuration
 
 Settings under **Настройки этого компьютера** are shared by all plugin keys.
 Permission to control VPN remains per key.
@@ -64,8 +64,10 @@ traffic goes through the VPN.
 
 Requires Windows 10/11 x64, .NET Framework 4.x and an AJAZZ host supporting Node.js 20.
 Tested with AJAZZ 3.10.200.0420, AKP153R, and AmneziaVPN 4.8.19.0 / AmneziaWG v2.
-Other Amnezia UI versions may need a plugin update. XRay/OpenVPN live switching
-and operation on a physical second PC have not been verified.
+Other Amnezia UI versions may need a plugin update. Full disconnect/reconnect
+cycles are verified on the configuration above with visible, minimized, and
+tray-hidden windows. XRay/OpenVPN live switching and other version combinations
+have not been verified.
 
 Keep the Amnezia main tab selected before hiding it. For tray-hidden control,
 the plugin briefly restores the client's window, invokes its button, and returns
@@ -77,7 +79,7 @@ uncertain commands are never automatically retried.
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for build, tests, and release instructions.
 CI uses simulated VPN responses; real connection tests require explicit opt-in
-and may interrupt networking. Detailed test scope is in [VERIFICATION.md](../VERIFICATION.md).
+and may interrupt networking.
 
 [Report a bug](https://github.com/RucardTomsk/ajazz-amnezia-vpn/issues/new/choose) ·
 [Report a vulnerability privately](https://github.com/RucardTomsk/ajazz-amnezia-vpn/security/advisories/new)
