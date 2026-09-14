@@ -2,12 +2,12 @@
 
 ![Amnezia VPN for AJAZZ — One key. Clear connection status.](docs/assets/banner.svg)
 
-[![CI](https://github.com/RucardTomsk/ajazz-amnezia-vpn/actions/workflows/ci.yml/badge.svg)](https://github.com/RucardTomsk/ajazz-amnezia-vpn/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/RucardTomsk/ajazz-amnezia-vpn)](https://github.com/RucardTomsk/ajazz-amnezia-vpn/releases/latest)
+[![CI — main](https://github.com/RucardTomsk/ajazz-amnezia-vpn/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/RucardTomsk/ajazz-amnezia-vpn/actions/workflows/ci.yml?query=branch%3Amain)
+[![Release](https://img.shields.io/github/v/release/RucardTomsk/ajazz-amnezia-vpn?display_name=tag&sort=semver)](https://github.com/RucardTomsk/ajazz-amnezia-vpn/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-35d69a.svg)](LICENSE)
 ![Platform: Windows x64](https://img.shields.io/badge/platform-Windows%20x64-357ec7.svg)
 
-**[Скачать плагин](https://github.com/RucardTomsk/ajazz-amnezia-vpn/releases/latest)** · [English](docs/README.en.md) · [История версий](CHANGELOG.md) · [Результаты проверок](VERIFICATION.md)
+**[Скачать плагин](https://github.com/RucardTomsk/ajazz-amnezia-vpn/releases/latest)** · [English](docs/README.en.md) · [История версий](CHANGELOG.md) · [Разработчикам](CONTRIBUTING.md)
 
 Кнопка показывает состояние AmneziaVPN и переключает подключение штатной кнопкой клиента через Windows UI Automation. При свёрнутом окне работает как обычно; при скрытии в трей и выборе режима AmneziaWG получает фоновый статус его службы. Используется выбранный в Amnezia сервер; настройки VPN и ключи плагин не читает. Обновление — раз в 2 секунды.
 
@@ -33,9 +33,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-AmneziaPlugin.ps1
 
 Релиз содержит `SHA256SUMS.txt`. Сравните его значение с `Get-FileHash .\AmneziaVPN-AJAZZ.zip -Algorithm SHA256`. Бинарный мост не имеет подписи Authenticode.
 
-## Настройка на другом ПК
+## Настройка
 
-В настройках кнопки появился раздел **«Настройки этого компьютера»**. Его параметры общие для всех кнопок плагина; разрешение управления — отдельное для каждой кнопки. Сохранение настроек и **«Проверить совместимость»** не переключают VPN.
+Раздел **«Настройки этого компьютера»** содержит общие параметры всех кнопок плагина. Разрешение управления задаётся отдельно для каждой кнопки. Сохранение настроек и **«Проверить совместимость»** не переключают VPN.
 
 1. Установите и запустите AJAZZ и AmneziaVPN. Настройте сервер в самой Amnezia.
 2. В плагине выберите **AmneziaWG / WireGuard**, если используете этот протокол. Для **XRay / OpenVPN — по окну клиента** оставляйте главное окно открытым или свёрнутым на панель задач. Полностью скрытое окно этих протоколов не поддерживается фоновым каналом WireGuard.
@@ -46,7 +46,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-AmneziaPlugin.ps1
 
 Режим **«Авто»** подтверждает активный AmneziaWG, но не делает вывод «VPN выключен» только из отсутствия туннеля WireGuard: в этот момент может работать другой протокол. Для полного цикла из трея явно выберите AmneziaWG / WireGuard.
 
-Диагностика показывает найденный клиент, его версию, среду AJAZZ, состояние окна и доступность штатной кнопки без вызова команды. Если версия клиента изменила внутренние идентификаторы кнопок, настройка пути/языка этого не исправит — потребуется обновление плагина. Физический второй ПК в этой сессии не использовался; переносимость проверена по коду, тестами разных конфигураций и установкой из готового архива в отдельную папку.
+Диагностика показывает найденный клиент, его версию, среду AJAZZ, состояние окна и доступность штатной кнопки без вызова команды. Если новая версия клиента изменила внутренние идентификаторы кнопок, потребуется обновление плагина.
 
 ## Индикация
 
@@ -72,44 +72,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-AmneziaPlugin.ps1
 - Повторные нажатия блокируются во время операции. Команды не повторяются автоматически при таймауте. Успешное подключение подтверждается чтением состояния клиента.
 - На запуске, при установке, смене страницы и выходе из AJAZZ команды управления VPN не отправляются.
 
-## Разработка и проверка
+Проверенная конфигурация: AJAZZ 3.10.200.0420, устройство AKP153R, AmneziaVPN 4.8.19.0 и AmneziaWG v2. Полный цикл подключения и отключения проверен с открытым, свёрнутым и скрытым в трее окном. Переключение XRay/OpenVPN и другие сочетания версий не подтверждены.
 
-```powershell
-git clone https://github.com/RucardTomsk/ajazz-amnezia-vpn.git
-cd ajazz-amnezia-vpn
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1
-node scripts/check-package.js
-node -e "require('./plugin/index').bridge('status').then(console.log)"
-```
-
-Последняя команда только читает состояние, не переключает VPN. Автотесты проверяют переключения на подставном клиенте, защиту от повторных нажатий, неизвестных состояний, таймаутов и отключённого управления. На AmneziaVPN 4.8.19.0 с AmneziaWG версии 2 также проверены реальные циклы отключения и подключения с открытым окном, свёрнутым окном и из трея.
-
-Отдельная проверка **реально отключает VPN**, затем подключает обратно; запускайте только когда разрыв соединения допустим:
-
-```powershell
-node scripts/live-test.js --allow-vpn-toggle --mode=hidden
-```
-
-Начальное состояние должно быть «Подключено». `--mode` должен соответствовать окну: `visible`, `minimized` или `hidden`. Скрипт проверяет режим только индикации, три быстрых нажатия, полный цикл и подтверждение локальной службой. Результаты сохраняются в `artifacts/live-test-*.json`. После теста VPN остаётся подключённым; при ошибке предпринимается возврат в подключённое состояние.
-
-Исходники: `plugin/core.js` — логика, `plugin/index.js` — протокол AJAZZ и ограниченный по времени запуск моста, `src/AmneziaBridge.cs` — доступ к штатной кнопке клиента. `scripts/build.ps1` собирает мост системным C# компилятором, создаёт иконки и архив в `dist`. Версия единственной JS-зависимости `ws` и SHA-512 зафиксированы в `plugin/package-lock.json`; npm и установочные скрипты не требуются. CI запускает проверки на Windows с Node.js 20 и 24, не подключаясь к настоящему VPN.
-
-## Участие и поддержка
+## Поддержка и разработка
 
 Нашли ошибку — создайте [Issue](https://github.com/RucardTomsk/ajazz-amnezia-vpn/issues/new/choose) с версиями Windows, AJAZZ, Amnezia и выбранным протоколом. Не прикладывайте ключи, профили VPN или необработанные журналы. Уязвимости сообщайте [приватно](https://github.com/RucardTomsk/ajazz-amnezia-vpn/security/advisories/new).
 
-[Как внести изменения](CONTRIBUTING.md) · [Правила общения](CODE_OF_CONDUCT.md) · [Безопасность](SECURITY.md)
+[Сборка, тесты и участие в разработке](CONTRIBUTING.md) · [Безопасность](SECURITY.md)
 
 ## Лицензия
 
 [MIT](LICENSE) — свободное использование, изменение и распространение, включая коммерческое, с сохранением уведомления об авторских правах и текста лицензии. Программа предоставляется без гарантий. Лицензии зависимостей перечислены в [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-
-## Основания реализации
-
-- [Stream Dock: регистрация плагинов](https://sdk.key123.vip/en/guide/registration.html)
-- [Stream Dock: manifest](https://sdk.key123.vip/en/guide/manifest.html)
-- [Amnezia 4.8.19.0: штатная кнопка подключения](https://github.com/amnezia-vpn/amnezia-client/blob/4.8.19.0/client/ui/qml/Components/ConnectButton.qml)
-- [Amnezia 4.8.19.0: обработка второго экземпляра](https://github.com/amnezia-vpn/amnezia-client/blob/4.8.19.0/client/main.cpp)
-
-Код плагина не копирует реализацию Amnezia. К локальной службе AmneziaWG отправляется исключительно запрос `status`; команды активации и деактивации службы не используются.

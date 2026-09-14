@@ -27,7 +27,7 @@ foreach ($name in @('index.js','core.js','background.js','config.js','inspector.
 New-Item -ItemType Directory -Force -Path (Join-Path $packagePath 'bin'),(Join-Path $packagePath 'node_modules') | Out-Null
 Copy-Item -LiteralPath (Join-Path $pluginPath 'bin\AmneziaBridge.exe') -Destination (Join-Path $packagePath 'bin')
 Copy-Item -LiteralPath (Join-Path $pluginPath 'node_modules\ws') -Destination (Join-Path $packagePath 'node_modules') -Recurse
-foreach ($name in @('README.md','LICENSE','THIRD_PARTY_NOTICES.md','CHANGELOG.md','VERIFICATION.md','CONTRIBUTING.md','CODE_OF_CONDUCT.md','SECURITY.md','docs')) {
+foreach ($name in @('README.md','LICENSE','THIRD_PARTY_NOTICES.md','CHANGELOG.md','CONTRIBUTING.md','SECURITY.md','docs')) {
     Copy-Item -LiteralPath (Join-Path $projectRoot $name) -Destination $packagePath -Recurse -Force
 }
 $installerPath = Join-Path $distPath 'Install-AmneziaPlugin.ps1'
