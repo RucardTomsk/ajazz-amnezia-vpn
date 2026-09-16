@@ -1,6 +1,6 @@
 {
   "name": "ajazz-amnezia-vpn",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "scripts": {
     "test": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1",

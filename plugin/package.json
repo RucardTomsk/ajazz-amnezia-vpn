@@ -1,6 +1,6 @@
 {
   "name": "com.rucard.amnezia",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "dependencies": {
     "ws": "8.21.3"
