@@ -1,8 +1,16 @@
 using System;
 class BridgeTests
 {
-    static int Main()
+    static int Main(string[] args)
     {
+        // A running client with no UIA window models startup directly into the tray.
+        // The JS regression test selects this process by its exact executable path.
+        if (args.Length == 1 && args[0] == "--headless-client") {
+            Console.WriteLine("ready");
+            Console.Out.Flush();
+            System.Threading.Thread.Sleep(30000);
+            return 0;
+        }
         string[,] cases = {
             {"Подключено", "connected"}, {"Connected", "connected"},
             {"Disconnected", "disconnected"}, {"Отключено", "disconnected"},

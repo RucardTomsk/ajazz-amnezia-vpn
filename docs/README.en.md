@@ -55,6 +55,10 @@ Keep the path blank for normal installations. A custom path selects an already
 running client and does not launch it. Diagnostics show the path, version,
 connection state, host runtime, and button availability without invoking it.
 
+With AmneziaWG / WireGuard, startup directly into the tray does not require
+opening the client window first. State may remain unknown while the client or
+service is starting; polling retries automatically without showing the window.
+
 ## Status and compatibility
 
 Green = connected; gray = disconnected; yellow = transition; red = error;

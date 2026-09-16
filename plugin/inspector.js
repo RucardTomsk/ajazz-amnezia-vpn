@@ -39,6 +39,7 @@ function showDiagnostics(value) {
   if (value.runtime) lines.push('Среда: ' + value.platform + ' / ' + value.architecture + ', Node.js ' + value.runtime, 'Системный мост: отвечает');
   if (value.canInvoke !== undefined) lines.push('Штатная команда кнопки: ' + (value.canInvoke ? 'доступна (не вызывалась)' : 'недоступна'));
   if (value.windowState === 'hidden') lines.push('Окно скрыто в трее; команда кнопки не проверялась.');
+  if (value.windowState === 'uninitialized') lines.push('Окно клиента ещё недоступно после запуска; используется фоновая проверка. Команда кнопки не проверялась.');
   const panel = document.getElementById('diagnostics');
   panel.hidden = false;
   panel.textContent = lines.filter(Boolean).join('\n');

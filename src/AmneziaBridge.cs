@@ -138,12 +138,15 @@ class AmneziaBridge
         // update QML visibility. Use Amnezia's own second-instance notification to
         // show its window, then invoke the real button and close back to the tray.
         // Monitoring never enters this path.
-        bool wasHidden = hwnd != IntPtr.Zero && !IsWindowVisible(hwnd);
+        // At tray-only startup the process exists before Qt exposes its main
+        // window to UIA. A missing handle is not evidence of a visible window.
+        bool windowUninitialized = hwnd == IntPtr.Zero;
+        bool wasHidden = !windowUninitialized && !IsWindowVisible(hwnd);
         bool wasMinimized = hwnd != IntPtr.Zero && IsIconic(hwnd);
-        string windowState = wasHidden ? "hidden" : wasMinimized ? "minimized" : "visible";
+        string windowState = windowUninitialized ? "uninitialized" : wasHidden ? "hidden" : wasMinimized ? "minimized" : "visible";
         IntPtr originalWindow = hwnd;
         try {
-            if (control && button == null && hwnd != IntPtr.Zero && (wasHidden || wasMinimized)) {
+            if (control && button == null && (windowUninitialized || wasHidden || wasMinimized)) {
                 revealed = true;
                 using (var instance = new NamedPipeClientStream(".", "AmneziaVPNInstance", PipeDirection.InOut)) {
                     instance.Connect(500); // Connection alone requests raiseMainWindow.
@@ -151,12 +154,13 @@ class AmneziaBridge
                 for (int attempt = 0; attempt < 15 && button == null; attempt++) {
                     Thread.Sleep(100);
                     button = FindButton(pids, out hwnd);
+                    if (originalWindow == IntPtr.Zero && hwnd != IntPtr.Zero) originalWindow = hwnd;
                 }
                 if (button != null) ShowWindowAsync(hwnd, 7);
             }
             if (button == null)
-                return new { state = "unknown", detail = "Откройте главную вкладку AmneziaVPN",
-                    invoked = false, backgroundAvailable = !control && (wasHidden || wasMinimized), windowState = windowState,
+                return new { state = "unknown", detail = windowUninitialized ? "AmneziaVPN запущена, окно ещё недоступно" : "Откройте главную вкладку AmneziaVPN",
+                    invoked = false, backgroundAvailable = !control && (windowUninitialized || wasHidden || wasMinimized), windowState = windowState,
                     applicationPath = appPath, applicationVersion = appVersion };
             string state = ParseState(button.Current.Name, options);
             if (!control) {
@@ -186,7 +190,7 @@ class AmneziaBridge
                 if (pids.Contains(owner)) {
                     // WM_CLOSE is intercepted by Amnezia to hide to tray, not quit.
                     // Unlike SW_HIDE it also restores Qt's internal visibility state.
-                    if (wasHidden) PostMessage(originalWindow, 0x0010, IntPtr.Zero, IntPtr.Zero);
+                    if (wasHidden || windowUninitialized) PostMessage(originalWindow, 0x0010, IntPtr.Zero, IntPtr.Zero);
                     else ShowWindowAsync(originalWindow, 7);
                 }
             }

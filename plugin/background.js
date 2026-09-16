@@ -50,7 +50,7 @@ async function withBackgroundStatus(uiStatus, query = queryDaemon, mode = 'auto'
       detail: 'Выберите AmneziaWG / WireGuard в настройках плагина, если используете этот протокол. Иначе откройте AmneziaVPN.' };
     return { ...uiStatus, ...result, windowState: uiStatus.windowState };
   }
-  catch { return { ...uiStatus, detail: 'Фоновое состояние недоступно. Откройте AmneziaVPN.' }; }
+  catch { return { ...uiStatus, detail: 'Служба AmneziaWG пока не ответила. Состояние будет проверено повторно.' }; }
 }
 
 module.exports = { queryDaemon, withBackgroundStatus };
